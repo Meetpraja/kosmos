@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.compose)
+    id("maven-publish")
 }
 
 android {
@@ -13,6 +14,12 @@ android {
         compose = true
     }
 
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+        }
+    }
+
     defaultConfig {
         minSdk = 24
 
@@ -23,6 +30,20 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
 
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            create<MavenPublication>("release") {
+                from(components["release"])
+
+                groupId = "com.github.username"
+                artifactId = "library_name"
+                version = "1.0.0"
+            }
+        }
+    }
 }
 
 dependencies {
