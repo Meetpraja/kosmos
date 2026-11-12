@@ -1,7 +1,13 @@
 
 package com.kosmos.components.inputs
 
-import android.R.attr.angle
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.tooling.preview.Preview
+import com.kosmos.components.preview.PreviewFrame
+import com.kosmos.components.preview.PreviewGallery
+
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
@@ -110,9 +116,6 @@ fun KosmosRadialMenu(
         )
         val itemProgress = menuProgress
 
-        val radians = angle * PI.toFloat() / 180f
-
-
         actions.forEachIndexed { index, action ->
 
 
@@ -128,7 +131,7 @@ fun KosmosRadialMenu(
             } else {
                 angles.start +
                         (angles.endInclusive - angles.start) *
-                        index / (actions.size - 1).toFloat()
+                        index / (if (layout == KosmosRadialLayout.Circle) actions.size else actions.size - 1).toFloat()
             }
 
             val radians = angle * PI.toFloat() / 180f
@@ -220,5 +223,78 @@ fun KosmosRadialMenu(
                 if (expanded) closeIcon() else menuIcon()
             }
         }
+    }
+}
+
+/** All styles and interaction examples together. Enable Interactive Preview to explore. */
+@Preview(name = "KosmosRadialMenu gallery", group = "Kosmos components", widthDp = 400, heightDp = 1000, showBackground = true)
+@Composable
+private fun KosmosRadialMenuPreview() {
+    PreviewGallery("KosmosRadialMenu") {
+        PreviewFrame("Closed radial menu", "Tap the main button and actions in Interactive Preview.", light = false) {
+            var expanded by remember { mutableStateOf(false) }
+            var selected by remember { mutableStateOf("Choose an action") }
+            Text(selected)
+            KosmosRadialMenu(
+                actions = listOf("A", "B", "C", "D").map { label -> KosmosRadialAction(label, { Text(label, color = Color.White) }, { selected = "Selected $label" }) },
+                expanded = expanded, onExpandedChange = { expanded = it },
+                menuIcon = { Text("+", color = Color.White) }, closeIcon = { Text("×", color = Color.White) },
+                layout = KosmosRadialLayout.Circle, startAngle = 20f, endAngle = 160f,
+                radius = 90.dp
+            )
+        }
+
+        PreviewFrame("Full circle actions", "Tap the main button and actions in Interactive Preview.", light = false) {
+            var expanded by remember { mutableStateOf(true) }
+            var selected by remember { mutableStateOf("Choose an action") }
+            Text(selected)
+            KosmosRadialMenu(
+                actions = listOf("A", "B", "C", "D").map { label -> KosmosRadialAction(label, { Text(label, color = Color.White) }, { selected = "Selected $label" }) },
+                expanded = expanded, onExpandedChange = { expanded = it },
+                menuIcon = { Text("+", color = Color.White) }, closeIcon = { Text("×", color = Color.White) },
+                layout = KosmosRadialLayout.Circle, startAngle = 20f, endAngle = 160f,
+                radius = 90.dp
+            )
+        }
+
+        PreviewFrame("Semicircle actions", "Tap the main button and actions in Interactive Preview.", light = false) {
+            var expanded by remember { mutableStateOf(true) }
+            var selected by remember { mutableStateOf("Choose an action") }
+            Text(selected)
+            KosmosRadialMenu(
+                actions = listOf("A", "B", "C", "D").map { label -> KosmosRadialAction(label, { Text(label, color = Color.White) }, { selected = "Selected $label" }) },
+                expanded = expanded, onExpandedChange = { expanded = it },
+                menuIcon = { Text("+", color = Color.White) }, closeIcon = { Text("×", color = Color.White) },
+                layout = KosmosRadialLayout.HalfCircle, startAngle = 20f, endAngle = 160f,
+                radius = 90.dp
+            )
+        }
+
+        PreviewFrame("Quarter circle actions", "Tap the main button and actions in Interactive Preview.", light = false) {
+            var expanded by remember { mutableStateOf(true) }
+            var selected by remember { mutableStateOf("Choose an action") }
+            Text(selected)
+            KosmosRadialMenu(
+                actions = listOf("A", "B", "C", "D").map { label -> KosmosRadialAction(label, { Text(label, color = Color.White) }, { selected = "Selected $label" }) },
+                expanded = expanded, onExpandedChange = { expanded = it },
+                menuIcon = { Text("+", color = Color.White) }, closeIcon = { Text("×", color = Color.White) },
+                layout = KosmosRadialLayout.QuarterCircle, startAngle = 20f, endAngle = 160f,
+                radius = 90.dp
+            )
+        }
+
+        PreviewFrame("Custom arc actions", "Tap the main button and actions in Interactive Preview.", light = false) {
+            var expanded by remember { mutableStateOf(true) }
+            var selected by remember { mutableStateOf("Choose an action") }
+            Text(selected)
+            KosmosRadialMenu(
+                actions = listOf("A", "B", "C", "D").map { label -> KosmosRadialAction(label, { Text(label, color = Color.White) }, { selected = "Selected $label" }) },
+                expanded = expanded, onExpandedChange = { expanded = it },
+                menuIcon = { Text("+", color = Color.White) }, closeIcon = { Text("×", color = Color.White) },
+                layout = KosmosRadialLayout.Custom, startAngle = 20f, endAngle = 160f,
+                radius = 90.dp
+            )
+        }
+
     }
 }

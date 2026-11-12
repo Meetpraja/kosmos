@@ -1,6 +1,13 @@
 
 package com.kosmos.components.shapes
 
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.tooling.preview.Preview
+import com.kosmos.components.preview.PreviewFrame
+import com.kosmos.components.preview.PreviewGallery
+
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
@@ -20,7 +27,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.rotate
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlin.math.PI
@@ -221,6 +227,8 @@ private fun getOrbitPathEffect(
     style: OrbitStyle,
     strokeWidth: Float
 ): PathEffect? {
+    if (strokeWidth <= 0f) return null
+
     return when (style) {
         OrbitStyle.SOLID -> null
 
@@ -231,5 +239,25 @@ private fun getOrbitPathEffect(
         OrbitStyle.DOTTED -> PathEffect.dashPathEffect(
             floatArrayOf(strokeWidth, strokeWidth * 2.5f)
         )
+    }
+}
+
+/** All styles and interaction examples together. Enable Interactive Preview to explore. */
+@Preview(name = "KosmosOrbit gallery", group = "Kosmos components", widthDp = 400, heightDp = 1000, showBackground = true)
+@Composable
+private fun KosmosOrbitPreview() {
+    PreviewGallery("KosmosOrbit") {
+        PreviewFrame("Solid orbital rings", "Default static rings around a center.", light = false) {
+            KosmosOrbit()
+        }
+
+        PreviewFrame("Dashed glow and satellites", "Interactive Preview animates the rings and orbiting objects.", light = false) {
+            KosmosOrbit(orbitStyle = OrbitStyle.DASHED, glowColor = Color(0xFF8B5CF6), glowRadius = 10.dp, showOrbitingObjects = true, animated = true)
+        }
+
+        PreviewFrame("Dotted tilted orbit", "Custom tilt, rotation, center border and ring count.", light = false) {
+            KosmosOrbit(orbitStyle = OrbitStyle.DOTTED, orbitColor = Color(0xFF22D3EE), orbitCount = 5, orbitTilt = 0.3f, rotation = 35f, centerBorderWidth = 3.dp, centerBorderColor = Color(0xFF8B5CF6))
+        }
+
     }
 }

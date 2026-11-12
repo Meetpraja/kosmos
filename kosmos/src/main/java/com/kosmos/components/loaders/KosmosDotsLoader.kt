@@ -1,5 +1,12 @@
 package com.kosmos.components.loaders
 
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.tooling.preview.Preview
+import com.kosmos.components.preview.PreviewFrame
+import com.kosmos.components.preview.PreviewGallery
+
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.tween
@@ -113,4 +120,24 @@ private suspend fun launchDotAnimation(
             easing = FastOutSlowInEasing
         )
     )
+}
+
+/** All styles and interaction examples together. Enable Interactive Preview to explore. */
+@Preview(name = "KosmosDotsLoader gallery", group = "Kosmos components", widthDp = 400, heightDp = 1000, showBackground = true)
+@Composable
+private fun KosmosDotsLoaderPreview() {
+    PreviewGallery("KosmosDotsLoader") {
+        PreviewFrame("Three bouncing dots", "Interactive Preview shows the bounce animation.", light = false) {
+            KosmosDotsLoader(modifier = Modifier.size(180.dp, 70.dp))
+        }
+
+        PreviewFrame("Five compact dots", "Smaller cyan dots with a higher bounce.", light = false) {
+            KosmosDotsLoader(modifier = Modifier.size(200.dp, 90.dp), dotColor = Color(0xFF22D3EE), dotCount = 5, dotSize = 8.dp, bounceHeight = 20.dp)
+        }
+
+        PreviewFrame("Stopped dots", "Static dots when isRunning is false.", light = false) {
+            KosmosDotsLoader(modifier = Modifier.size(180.dp, 70.dp), isRunning = false, dotSize = 16.dp, dotSpacing = 14.dp)
+        }
+
+    }
 }

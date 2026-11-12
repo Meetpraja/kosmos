@@ -1,5 +1,12 @@
 package com.kosmos.components.shapes
 
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.tooling.preview.Preview
+import com.kosmos.components.preview.PreviewFrame
+import com.kosmos.components.preview.PreviewGallery
+
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -58,5 +65,25 @@ fun KosmosLiquidShape(
         }
 
         drawPath(path = path, color = color)
+    }
+}
+
+/** All styles and interaction examples together. Enable Interactive Preview to explore. */
+@Preview(name = "KosmosLiquidShape gallery", group = "Kosmos components", widthDp = 400, heightDp = 1000, showBackground = true)
+@Composable
+private fun KosmosLiquidShapePreview() {
+    PreviewGallery("KosmosLiquidShape") {
+        PreviewFrame("Default liquid wave", "Use as a section divider or decorative footer.", light = false) {
+            KosmosLiquidShape()
+        }
+
+        PreviewFrame("Shallow cyan wave", "Low curve depth gives a subtle edge.", light = false) {
+            KosmosLiquidShape(color = Color(0xFF22D3EE), curveHeight = 0.25f, curveDepth = 0.08f)
+        }
+
+        PreviewFrame("Deep pink wave", "Higher depth produces a stronger liquid effect.", light = false) {
+            KosmosLiquidShape(color = Color(0xFFEC4899), curveHeight = 0.6f, curveDepth = 0.4f)
+        }
+
     }
 }

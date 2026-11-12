@@ -1,6 +1,13 @@
 
 package com.kosmos.components.backgrounds
 
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.tooling.preview.Preview
+import com.kosmos.components.preview.PreviewFrame
+import com.kosmos.components.preview.PreviewGallery
+
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -158,5 +165,25 @@ fun KosmosBottomWaveBackground(
                 )
             }
         }
+    }
+}
+
+/** All styles and interaction examples together. Enable Interactive Preview to explore. */
+@Preview(name = "KosmosBottomWaveBackground gallery", group = "Kosmos components", widthDp = 400, heightDp = 1000, showBackground = true)
+@Composable
+private fun KosmosBottomWaveBackgroundPreview() {
+    PreviewGallery("KosmosBottomWaveBackground") {
+        PreviewFrame("Subtle layered waves", "Default neutral strokes.", light = false) {
+            KosmosBottomWaveBackground()
+        }
+
+        PreviewFrame("Neon layered waves", "Colored strokes and wider glow.", light = false) {
+            KosmosBottomWaveBackground(firstWaveColor = Color(0xFF8B5CF6), secondWaveColor = Color(0xFF22D3EE), thirdWaveColor = Color(0xFFEC4899), glowAlpha = 0.3f, waveAlpha = 0.7f, glowWidth = 30.dp)
+        }
+
+        PreviewFrame("Fine wave divider", "Compact height and thin highlight strokes.", light = false) {
+            KosmosBottomWaveBackground(modifier = Modifier.fillMaxWidth().height(120.dp), glowWidth = 0.dp, waveWidth = 2.dp, highlightWidth = 1.dp)
+        }
+
     }
 }

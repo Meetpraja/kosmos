@@ -1,5 +1,12 @@
 package com.kosmos.components.shapes
 
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.tooling.preview.Preview
+import com.kosmos.components.preview.PreviewFrame
+import com.kosmos.components.preview.PreviewGallery
+
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
@@ -66,5 +73,25 @@ fun KosmosBlob(
         }
 
         drawPath(path = path, color = color)
+    }
+}
+
+/** All styles and interaction examples together. Enable Interactive Preview to explore. */
+@Preview(name = "KosmosBlob gallery", group = "Kosmos components", widthDp = 400, heightDp = 1000, showBackground = true)
+@Composable
+private fun KosmosBlobPreview() {
+    PreviewGallery("KosmosBlob") {
+        PreviewFrame("Soft organic blob", "Default purple fill with eight control points.", light = false) {
+            KosmosBlob()
+        }
+
+        PreviewFrame("Rounded cyan blob", "More points and low irregularity produce a softer outline.", light = false) {
+            KosmosBlob(color = Color(0xFF22D3EE), pointCount = 12, irregularity = 0.08f)
+        }
+
+        PreviewFrame("Angular coral blob", "Fewer points and deeper irregularity change the silhouette.", light = false) {
+            KosmosBlob(color = Color(0xFFFB7185), pointCount = 5, irregularity = 0.42f)
+        }
+
     }
 }

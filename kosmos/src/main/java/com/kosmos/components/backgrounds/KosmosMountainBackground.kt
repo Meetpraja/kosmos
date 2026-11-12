@@ -1,6 +1,14 @@
 
 package com.kosmos.components.backgrounds
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.tooling.preview.Preview
+import com.kosmos.components.preview.PreviewFrame
+import com.kosmos.components.preview.PreviewGallery
+
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
@@ -228,5 +236,25 @@ fun KosmosMountainBackground(
                 endY = h
             )
         )
+    }
+}
+
+/** All styles and interaction examples together. Enable Interactive Preview to explore. */
+@Preview(name = "KosmosMountainBackground gallery", group = "Kosmos components", widthDp = 400, heightDp = 1000, showBackground = true)
+@Composable
+private fun KosmosMountainBackgroundPreview() {
+    PreviewGallery("KosmosMountainBackground") {
+        PreviewFrame("Moonlit mountains", "Full landscape with moon and stars.", light = false) {
+            KosmosMountainBackground(modifier = Modifier.fillMaxWidth().height(400.dp))
+        }
+
+        PreviewFrame("Purple night landscape", "Custom sky, mountains and moon glow.", light = false) {
+            KosmosMountainBackground(modifier = Modifier.fillMaxWidth().height(400.dp), backgroundColor = Color(0xFF160B30), moonGlowColor = Color(0xFF8B5CF6), backMountainColor = Color(0xFF39215B), middleMountainColor = Color(0xFF251640))
+        }
+
+        PreviewFrame("Minimal mountain silhouette", "Hide moon and stars for a quiet background.", light = false) {
+            KosmosMountainBackground(modifier = Modifier.fillMaxWidth().height(400.dp), showMoon = false, showStars = false, skyGlowAlpha = 0f)
+        }
+
     }
 }

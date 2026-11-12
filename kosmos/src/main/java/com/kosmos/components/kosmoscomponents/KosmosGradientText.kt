@@ -1,5 +1,12 @@
 package com.kosmos.components.kosmoscomponents
 
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.tooling.preview.Preview
+import com.kosmos.components.preview.PreviewFrame
+import com.kosmos.components.preview.PreviewGallery
+
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -84,5 +91,25 @@ fun KosmosGradientText(
             overflow = overflow,
             softWrap = softWrap
         )
+    }
+}
+
+/** All styles and interaction examples together. Enable Interactive Preview to explore. */
+@Preview(name = "KosmosGradientText gallery", group = "Kosmos components", widthDp = 400, heightDp = 1000, showBackground = true)
+@Composable
+private fun KosmosGradientTextPreview() {
+    PreviewGallery("KosmosGradientText") {
+        PreviewFrame("Gradient heading", "Explicit alignment renders the current text implementation.", light = false) {
+            KosmosGradientText(text = "Build with Kosmos", textAlign = TextAlign.Start)
+        }
+
+        PreviewFrame("Ocean display text", "Custom palette, font size and centered alignment.", light = false) {
+            KosmosGradientText(text = "Make it flow", gradientColors = listOf(Color(0xFF22D3EE), Color(0xFF2563EB)), fontSize = 40.sp, textAlign = TextAlign.Center)
+        }
+
+        PreviewFrame("Multiline gradient", "Long text with a controlled line count.", light = false) {
+            KosmosGradientText(text = "Beautiful components for your next Android experience", textAlign = TextAlign.Start, maxLines = 3, fontSize = 28.sp)
+        }
+
     }
 }

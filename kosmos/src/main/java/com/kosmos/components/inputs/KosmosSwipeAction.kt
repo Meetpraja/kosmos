@@ -1,6 +1,11 @@
 
 package com.kosmos.components.inputs
 
+import androidx.compose.material3.*
+import androidx.compose.ui.tooling.preview.Preview
+import com.kosmos.components.preview.PreviewFrame
+import com.kosmos.components.preview.PreviewGallery
+
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.snap
@@ -51,7 +56,6 @@ import kotlin.math.abs
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.tooling.preview.Preview
 
 /**
  * Logical side from which swipe actions are revealed.
@@ -456,5 +460,43 @@ private fun ActionContent(
             textAlign = TextAlign.Center,
             maxLines = 1
         )
+    }
+}
+
+/** All styles and interaction examples together. Enable Interactive Preview to explore. */
+@Preview(name = "KosmosSwipeAction gallery", group = "Kosmos components", widthDp = 400, heightDp = 1000, showBackground = true)
+@Composable
+private fun KosmosSwipeActionPreview() {
+    PreviewGallery("KosmosSwipeAction") {
+        PreviewFrame("Closed swipe actions", "Drag horizontally or tap an action in Interactive Preview.", light = false) {
+            var side by remember { mutableStateOf<KosmosSwipeSide?>(null) }
+            var status by remember { mutableStateOf("Inbox message") }
+            KosmosSwipeAction(
+                revealedSide = side, onRevealedSideChange = { side = it },
+                startActions = listOf(KosmosSwipeActionItem("Save", { Text("+") }, { status = "Saved" }, backgroundColor = Color(0xFF166534))),
+                endActions = listOf(KosmosSwipeActionItem("Delete", { Text("×") }, { status = "Deleted" }, backgroundColor = Color(0xFF9F1239)))
+            ) { Box(Modifier.fillMaxWidth().height(100.dp).background(Color(0xFF303040)).padding(20.dp)) { Text(status, color = Color.White) } }
+        }
+
+        PreviewFrame("Start actions revealed", "Drag horizontally or tap an action in Interactive Preview.", light = false) {
+            var side by remember { mutableStateOf<KosmosSwipeSide?>(KosmosSwipeSide.Start) }
+            var status by remember { mutableStateOf("Inbox message") }
+            KosmosSwipeAction(
+                revealedSide = side, onRevealedSideChange = { side = it },
+                startActions = listOf(KosmosSwipeActionItem("Save", { Text("+") }, { status = "Saved" }, backgroundColor = Color(0xFF166534))),
+                endActions = listOf(KosmosSwipeActionItem("Delete", { Text("×") }, { status = "Deleted" }, backgroundColor = Color(0xFF9F1239)))
+            ) { Box(Modifier.fillMaxWidth().height(100.dp).background(Color(0xFF303040)).padding(20.dp)) { Text(status, color = Color.White) } }
+        }
+
+        PreviewFrame("End actions revealed", "Drag horizontally or tap an action in Interactive Preview.", light = false) {
+            var side by remember { mutableStateOf<KosmosSwipeSide?>(KosmosSwipeSide.End) }
+            var status by remember { mutableStateOf("Inbox message") }
+            KosmosSwipeAction(
+                revealedSide = side, onRevealedSideChange = { side = it },
+                startActions = listOf(KosmosSwipeActionItem("Save", { Text("+") }, { status = "Saved" }, backgroundColor = Color(0xFF166534))),
+                endActions = listOf(KosmosSwipeActionItem("Delete", { Text("×") }, { status = "Deleted" }, backgroundColor = Color(0xFF9F1239)))
+            ) { Box(Modifier.fillMaxWidth().height(100.dp).background(Color(0xFF303040)).padding(20.dp)) { Text(status, color = Color.White) } }
+        }
+
     }
 }

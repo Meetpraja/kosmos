@@ -1,5 +1,12 @@
 package com.kosmos.components.inputs
 
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.tooling.preview.Preview
+import com.kosmos.components.preview.PreviewFrame
+import com.kosmos.components.preview.PreviewGallery
+
 import android.util.Log
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.Spring
@@ -34,7 +41,6 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.material3.Text
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -256,5 +262,28 @@ fun <T> KosmosCardStack(
                 }
             }
         }
+    }
+}
+
+/** All styles and interaction examples together. Enable Interactive Preview to explore. */
+@Preview(name = "KosmosCardStack gallery", group = "Kosmos components", widthDp = 400, heightDp = 1000, showBackground = true)
+@Composable
+private fun KosmosCardStackPreview() {
+    PreviewGallery("KosmosCardStack") {
+        PreviewFrame("Swipeable card deck", "Drag left or right in Interactive Preview.", light = false) {
+            val cards = remember { listOf("Explore the cosmos", "Find your next idea", "Build something new") }
+            var lastSwipe by remember { mutableStateOf("Swipe a card") }
+            Text(lastSwipe)
+            KosmosCardStack(cards = cards, onCardSwiped = { item, direction -> lastSwipe = "$item: $direction" }, modifier = Modifier.fillMaxWidth(), cardHeight = 220.dp) { item -> Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { Text(item, color = Color.White) } }
+        }
+
+        PreviewFrame("Compact cyan deck", "Four visible cards with deeper spacing.", light = false) {
+            KosmosCardStack(cards = listOf("One", "Two", "Three", "Four"), onCardSwiped = { _, _ -> }, modifier = Modifier.fillMaxWidth(), cardHeight = 160.dp, visibleCardCount = 4, stackOffset = 20.dp, scaleStep = 0.1f, cardColor = Color(0xFF155E75)) { Text(it, Modifier.padding(24.dp), color = Color.White) }
+        }
+
+        PreviewFrame("Single disabled card", "No gestures, squared corners and custom content.", light = false) {
+            KosmosCardStack(cards = listOf("Read only card"), onCardSwiped = { _, _ -> }, modifier = Modifier.fillMaxWidth(), visibleCardCount = 1, cardHeight = 160.dp, enabled = false, cardShape = RoundedCornerShape(8.dp)) { Text(it, Modifier.padding(24.dp), color = Color.White) }
+        }
+
     }
 }

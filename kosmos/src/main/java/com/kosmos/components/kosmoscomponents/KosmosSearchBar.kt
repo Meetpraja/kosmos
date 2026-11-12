@@ -1,5 +1,13 @@
 package com.kosmos.components.kosmoscomponents
 
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.tooling.preview.Preview
+import com.kosmos.components.preview.PreviewFrame
+import com.kosmos.components.preview.PreviewGallery
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -194,5 +202,27 @@ fun KosmosSearchBar(
             Spacer(modifier = Modifier.width(10.dp))
             trailingIcon()
         }
+    }
+}
+
+/** All styles and interaction examples together. Enable Interactive Preview to explore. */
+@Preview(name = "KosmosSearchBar gallery", group = "Kosmos components", widthDp = 400, heightDp = 1000, showBackground = true)
+@Composable
+private fun KosmosSearchBarPreview() {
+    PreviewGallery("KosmosSearchBar") {
+        PreviewFrame("Empty search input", "Interactive Preview supports typing.", light = false) {
+            var query by remember { mutableStateOf("") }
+            KosmosSearchBar(value = query, onValueChange = { query = it })
+        }
+
+        PreviewFrame("Populated search with slots", "Clear button and custom leading and trailing content.", light = false) {
+            var query by remember { mutableStateOf("Compose") }
+            KosmosSearchBar(value = query, onValueChange = { query = it }, leadingIcon = { Text("⌕") }, trailingIcon = { Text("Filter") })
+        }
+
+        PreviewFrame("Light disabled search", "Custom light colors with disabled input.", light = true) {
+            KosmosSearchBar(value = "Search unavailable", onValueChange = {}, enabled = false, backgroundColor = Color(0xFFF1F5F9), textColor = Color.Gray, shape = CircleShape)
+        }
+
     }
 }

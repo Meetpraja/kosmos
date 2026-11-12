@@ -1,5 +1,13 @@
 package com.kosmos.components.kosmoscomponents
 
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.tooling.preview.Preview
+import com.kosmos.components.preview.PreviewFrame
+import com.kosmos.components.preview.PreviewGallery
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -95,4 +103,24 @@ fun KosmosGradientButton(
         verticalAlignment = Alignment.CenterVertically,
         content = content
     )
+}
+
+/** All styles and interaction examples together. Enable Interactive Preview to explore. */
+@Preview(name = "KosmosGradientButton gallery", group = "Kosmos components", widthDp = 400, heightDp = 1000, showBackground = true)
+@Composable
+private fun KosmosGradientButtonPreview() {
+    PreviewGallery("KosmosGradientButton") {
+        PreviewFrame("Primary gradient button", "Rounded button with a text content slot.", light = false) {
+            KosmosGradientButton(onClick = {}) { Text("Get started", color = Color.White) }
+        }
+
+        PreviewFrame("Pill icon button", "Custom colors, pill shape and icon-like content.", light = false) {
+            KosmosGradientButton(onClick = {}, gradientColors = listOf(Color(0xFF22D3EE), Color(0xFF2563EB)), shape = CircleShape) { Text("+  Create project", color = Color.White) }
+        }
+
+        PreviewFrame("Disabled bordered button", "Disabled click behavior with custom border and padding.", light = false) {
+            KosmosGradientButton(onClick = {}, enabled = false, borderColor = Color.White, borderWidth = 1.dp, contentPadding = PaddingValues(20.dp)) { Text("Unavailable", color = Color.White) }
+        }
+
+    }
 }

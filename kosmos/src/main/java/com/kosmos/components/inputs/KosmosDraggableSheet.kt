@@ -1,5 +1,10 @@
 package com.kosmos.components.inputs
 
+import androidx.compose.material3.*
+import androidx.compose.ui.tooling.preview.Preview
+import com.kosmos.components.preview.PreviewFrame
+import com.kosmos.components.preview.PreviewGallery
+
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
@@ -42,7 +47,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.material3.Text
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import kotlin.math.abs
 import androidx.compose.foundation.layout.*
@@ -297,4 +301,45 @@ private fun DefaultKosmosDragHandle() {
             .clip(RoundedCornerShape(50))
             .background(Color.White.copy(alpha = 0.28f))
     )
+}
+
+/** All styles and interaction examples together. Enable Interactive Preview to explore. */
+@Preview(name = "KosmosDraggableSheet gallery", group = "Kosmos components", widthDp = 400, heightDp = 1000, showBackground = true)
+@Composable
+private fun KosmosDraggableSheetPreview() {
+    PreviewGallery("KosmosDraggableSheet") {
+        PreviewFrame("Collapsed sheet", "Peek content with a drag handle. Expand in Interactive Preview.", light = false) {
+            var expanded by remember { mutableStateOf(false) }
+            KosmosDraggableSheet(
+                expanded = expanded, onExpandedChange = { expanded = it },
+                modifier = Modifier.fillMaxWidth().height(460.dp), sheetMaxHeight = 340.dp,
+                peekHeight = 100.dp, dragHandle = true, sheetColor = Color(0xFF25304A),
+                content = { Button(onClick = { expanded = !expanded }) { Text("Toggle sheet") } },
+                sheetContent = { Text("Your collection", Modifier.padding(20.dp), color = Color.White); Text("Drag this sheet or tap the background to collapse.", Modifier.padding(horizontal = 20.dp), color = Color.White) }
+            )
+        }
+
+        PreviewFrame("Expanded sheet", "Expanded content and background scrim.", light = false) {
+            var expanded by remember { mutableStateOf(true) }
+            KosmosDraggableSheet(
+                expanded = expanded, onExpandedChange = { expanded = it },
+                modifier = Modifier.fillMaxWidth().height(460.dp), sheetMaxHeight = 340.dp,
+                peekHeight = 100.dp, dragHandle = true, sheetColor = Color(0xFF25304A),
+                content = { Button(onClick = { expanded = !expanded }) { Text("Toggle sheet") } },
+                sheetContent = { Text("Your collection", Modifier.padding(20.dp), color = Color.White); Text("Drag this sheet or tap the background to collapse.", Modifier.padding(horizontal = 20.dp), color = Color.White) }
+            )
+        }
+
+        PreviewFrame("Sheet without handle", "Custom presentation with the default handle hidden.", light = false) {
+            var expanded by remember { mutableStateOf(true) }
+            KosmosDraggableSheet(
+                expanded = expanded, onExpandedChange = { expanded = it },
+                modifier = Modifier.fillMaxWidth().height(460.dp), sheetMaxHeight = 340.dp,
+                peekHeight = 100.dp, dragHandle = false, sheetColor = Color(0xFF25304A),
+                content = { Button(onClick = { expanded = !expanded }) { Text("Toggle sheet") } },
+                sheetContent = { Text("Your collection", Modifier.padding(20.dp), color = Color.White); Text("Drag this sheet or tap the background to collapse.", Modifier.padding(horizontal = 20.dp), color = Color.White) }
+            )
+        }
+
+    }
 }

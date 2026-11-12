@@ -1,6 +1,13 @@
 
 package com.kosmos.components.kosmoscomponents
 
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.tooling.preview.Preview
+import com.kosmos.components.preview.PreviewFrame
+import com.kosmos.components.preview.PreviewGallery
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -146,5 +153,25 @@ fun KosmosNeumorphicCard(
         }
     ) {
         content()
+    }
+}
+
+/** All styles and interaction examples together. Enable Interactive Preview to explore. */
+@Preview(name = "KosmosNeumorphicCard gallery", group = "Kosmos components", widthDp = 400, heightDp = 1000, showBackground = true)
+@Composable
+private fun KosmosNeumorphicCardPreview() {
+    PreviewGallery("KosmosNeumorphicCard") {
+        PreviewFrame("Raised neumorphic card", "Outer shadows lift the card from its matching surface.", light = false) {
+            Box(Modifier.fillMaxWidth().background(Color(0xFFE0E5EC)).padding(24.dp)) { KosmosNeumorphicCard(style = KosmosNeumorphicStyle.Raised) { Column { Text("Raised surface", color = Color(0xFF303040)); Text("Directional shadows", color = Color(0xFF555566)) } } }
+        }
+
+        PreviewFrame("Flat neumorphic card", "Bordered flat surface without depth.", light = false) {
+            Box(Modifier.fillMaxWidth().background(Color(0xFFE0E5EC)).padding(24.dp)) { KosmosNeumorphicCard(style = KosmosNeumorphicStyle.Flat) { Column { Text("Flat surface", color = Color(0xFF303040)); Text("Directional shadows", color = Color(0xFF555566)) } } }
+        }
+
+        PreviewFrame("Pressed neumorphic card", "Inner shadows create a recessed surface.", light = false) {
+            Box(Modifier.fillMaxWidth().background(Color(0xFFE0E5EC)).padding(24.dp)) { KosmosNeumorphicCard(style = KosmosNeumorphicStyle.Pressed) { Column { Text("Pressed surface", color = Color(0xFF303040)); Text("Directional shadows", color = Color(0xFF555566)) } } }
+        }
+
     }
 }

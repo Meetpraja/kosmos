@@ -1,5 +1,12 @@
 package com.kosmos.components.loaders
 
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.tooling.preview.Preview
+import com.kosmos.components.preview.PreviewFrame
+import com.kosmos.components.preview.PreviewGallery
+
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
@@ -140,5 +147,25 @@ fun KosmosWaveLoader(
                 )
             )
         }
+    }
+}
+
+/** All styles and interaction examples together. Enable Interactive Preview to explore. */
+@Preview(name = "KosmosWaveLoader gallery", group = "Kosmos components", widthDp = 400, heightDp = 1000, showBackground = true)
+@Composable
+private fun KosmosWaveLoaderPreview() {
+    PreviewGallery("KosmosWaveLoader") {
+        PreviewFrame("Rounded wave bars", "Interactive Preview shows the bar heights changing.", light = false) {
+            KosmosWaveLoader()
+        }
+
+        PreviewFrame("Dense cyan equalizer", "Ten narrow square bars with a taller wave.", light = false) {
+            KosmosWaveLoader(modifier = Modifier.size(220.dp, 100.dp), waveColor = Color(0xFF22D3EE), barCount = 10, cornerRadius = 0.dp, maxBarHeight = 80.dp)
+        }
+
+        PreviewFrame("Stopped wave", "Static minimum-height bars.", light = false) {
+            KosmosWaveLoader(isRunning = false, barWidth = 10.dp, barSpacing = 10.dp, minBarHeight = 20.dp)
+        }
+
     }
 }

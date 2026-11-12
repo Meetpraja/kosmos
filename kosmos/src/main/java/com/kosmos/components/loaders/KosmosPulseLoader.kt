@@ -1,5 +1,12 @@
 package com.kosmos.components.loaders
 
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.tooling.preview.Preview
+import com.kosmos.components.preview.PreviewFrame
+import com.kosmos.components.preview.PreviewGallery
+
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
@@ -131,3 +138,22 @@ fun KosmosPulseLoader(
     }
 }
 
+/** All styles and interaction examples together. Enable Interactive Preview to explore. */
+@Preview(name = "KosmosPulseLoader gallery", group = "Kosmos components", widthDp = 400, heightDp = 1000, showBackground = true)
+@Composable
+private fun KosmosPulseLoaderPreview() {
+    PreviewGallery("KosmosPulseLoader") {
+        PreviewFrame("Concentric pulse", "Interactive Preview shows expanding and fading rings.", light = false) {
+            KosmosPulseLoader()
+        }
+
+        PreviewFrame("Five cyan pulses", "More rings without a center dot.", light = false) {
+            KosmosPulseLoader(modifier = Modifier.size(120.dp), pulseColor = Color(0xFF22D3EE), pulseCount = 5, maxRadius = 50.dp, showCenterDot = false)
+        }
+
+        PreviewFrame("Stopped pulse", "Only the center remains while stopped.", light = false) {
+            KosmosPulseLoader(isRunning = false, centerRadius = 10.dp)
+        }
+
+    }
+}

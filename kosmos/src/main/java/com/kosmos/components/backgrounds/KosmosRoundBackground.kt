@@ -1,6 +1,13 @@
 
 package com.kosmos.components.backgrounds
 
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.tooling.preview.Preview
+import com.kosmos.components.preview.PreviewFrame
+import com.kosmos.components.preview.PreviewGallery
+
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
@@ -70,5 +77,25 @@ fun KosmosRoundBackground(
                 style = Stroke(width = strokeWidth)
             )
         }
+    }
+}
+
+/** All styles and interaction examples together. Enable Interactive Preview to explore. */
+@Preview(name = "KosmosRoundBackground gallery", group = "Kosmos components", widthDp = 400, heightDp = 1000, showBackground = true)
+@Composable
+private fun KosmosRoundBackgroundPreview() {
+    PreviewGallery("KosmosRoundBackground") {
+        PreviewFrame("Dark round surface", "Default radial shading and subtle border.", light = false) {
+            KosmosRoundBackground(modifier = Modifier.size(300.dp))
+        }
+
+        PreviewFrame("Purple glow surface", "Custom highlight and a stronger circular border.", light = false) {
+            KosmosRoundBackground(modifier = Modifier.size(300.dp), highlightColor = Color(0xFF8B5CF6), borderColor = Color(0xFF22D3EE), borderWidth = 4.dp)
+        }
+
+        PreviewFrame("Light round surface", "A pale surface without a border.", light = true) {
+            KosmosRoundBackground(modifier = Modifier.size(300.dp), highlightColor = Color.White, backgroundColor = Color(0xFFE0E7FF), borderWidth = 0.dp)
+        }
+
     }
 }

@@ -1,5 +1,14 @@
 package com.kosmos.components.kosmoscomponents
 
+import androidx.compose.foundation.layout.padding
+
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.tooling.preview.Preview
+import com.kosmos.components.preview.PreviewFrame
+import com.kosmos.components.preview.PreviewGallery
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -59,21 +68,30 @@ fun KosmosGlassCard(
                 color = borderColor.copy(alpha = 0.35f),
                 shape = shape
             )
-            .then(
-                Modifier
-            )
+            .padding(contentPadding)
     ) {
-        Box(
-            modifier = Modifier
-                .background(Color.Transparent)
-                .then(
-                    Modifier
-                )
-        ) {
-            androidx.compose.foundation.layout.Column(
-                modifier = Modifier,
-                content = { content() }
-            )
+        content()
+    }
+}
+
+/** All styles and interaction examples together. Enable Interactive Preview to explore. */
+@Preview(name = "KosmosGlassCard gallery", group = "Kosmos components", widthDp = 400, heightDp = 1000, showBackground = true)
+@Composable
+private fun KosmosGlassCardPreview() {
+    PreviewGallery("KosmosGlassCard") {
+        PreviewFrame("Glass on a gradient backdrop", "Translucent surface without background blur.", light = false) {
+            Box(Modifier.background(Color(0xFF553399)).padding(16.dp)) {
+                KosmosGlassCard { Column(Modifier.padding(20.dp)) { Text("Glass surface", color = Color.White); Text("Translucent card over purple", color = Color.White) } }
+            }
         }
+
+        PreviewFrame("Frosted cyan panel", "Stronger tint, custom border and softer corners.", light = false) {
+            KosmosGlassCard(backgroundColor = Color(0xFF22D3EE), backgroundAlpha = 0.2f, borderColor = Color(0xFF22D3EE), borderWidth = 2.dp, shape = RoundedCornerShape(12.dp)) { Text("Tinted panel", Modifier.padding(24.dp)) }
+        }
+
+        PreviewFrame("Light glass panel", "Higher opacity over a colored backdrop.", light = true) {
+            Box(Modifier.background(Color(0xFF2563EB)).padding(16.dp)) { KosmosGlassCard(backgroundAlpha = 0.65f) { Text("High opacity glass", Modifier.padding(24.dp), color = Color.Black) } }
+        }
+
     }
 }

@@ -1,6 +1,13 @@
 
 package com.kosmos.components.inputs
 
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.tooling.preview.Preview
+import com.kosmos.components.preview.PreviewFrame
+import com.kosmos.components.preview.PreviewGallery
+
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
@@ -189,5 +196,27 @@ fun KosmosToggle(
             center = Offset(centerX, centerY),
             style = Stroke(width = 0.7.dp.toPx())
         )
+    }
+}
+
+/** All styles and interaction examples together. Enable Interactive Preview to explore. */
+@Preview(name = "KosmosToggle gallery", group = "Kosmos components", widthDp = 400, heightDp = 1000, showBackground = true)
+@Composable
+private fun KosmosTogglePreview() {
+    PreviewGallery("KosmosToggle") {
+        PreviewFrame("Interactive toggle", "Tap in Interactive Preview to change state.", light = false) {
+            var checked by remember { mutableStateOf(false) }
+            KosmosToggle(checked = checked, onCheckedChange = { checked = it })
+        }
+
+        PreviewFrame("Active cyan toggle", "Custom active thumb color and larger dimensions.", light = false) {
+            var checked by remember { mutableStateOf(true) }
+            KosmosToggle(checked = checked, onCheckedChange = { checked = it }, activeThumbColor = Color(0xFF22D3EE), trackWidth = 80.dp, trackHeight = 44.dp, thumbSize = 32.dp)
+        }
+
+        PreviewFrame("Disabled toggle states", "Compare disabled on and off switches.", light = false) {
+            Row(horizontalArrangement = Arrangement.spacedBy(24.dp)) { KosmosToggle(checked = false, onCheckedChange = {}, enabled = false); KosmosToggle(checked = true, onCheckedChange = {}, enabled = false) }
+        }
+
     }
 }

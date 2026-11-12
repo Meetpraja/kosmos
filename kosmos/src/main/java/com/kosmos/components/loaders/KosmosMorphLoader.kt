@@ -1,5 +1,12 @@
 package com.kosmos.components.loaders
 
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.tooling.preview.Preview
+import com.kosmos.components.preview.PreviewFrame
+import com.kosmos.components.preview.PreviewGallery
+
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.tween
@@ -133,5 +140,25 @@ fun KosmosMorphLoader(
                 )
             }
         }
+    }
+}
+
+/** All styles and interaction examples together. Enable Interactive Preview to explore. */
+@Preview(name = "KosmosMorphLoader gallery", group = "Kosmos components", widthDp = 400, heightDp = 1000, showBackground = true)
+@Composable
+private fun KosmosMorphLoaderPreview() {
+    PreviewGallery("KosmosMorphLoader") {
+        PreviewFrame("Outlined morph", "Interactive Preview reveals rotation and corner morphing.", light = false) {
+            KosmosMorphLoader()
+        }
+
+        PreviewFrame("Filled cyan morph", "Filled shape with a faster cycle.", light = false) {
+            KosmosMorphLoader(color = Color(0xFF22D3EE), filled = true, size = 90.dp, animationDurationMillis = 1000)
+        }
+
+        PreviewFrame("Stopped morph", "Static filled starting shape.", light = false) {
+            KosmosMorphLoader(isRunning = false, filled = true, color = Color(0xFFFB7185))
+        }
+
     }
 }

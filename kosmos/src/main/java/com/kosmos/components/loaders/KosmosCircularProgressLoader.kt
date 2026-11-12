@@ -1,5 +1,12 @@
 package com.kosmos.components.loaders
 
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.tooling.preview.Preview
+import com.kosmos.components.preview.PreviewFrame
+import com.kosmos.components.preview.PreviewGallery
+
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
@@ -40,20 +47,25 @@ fun KosmosCircularProgressLoader(
     isRunning: Boolean = true,
     showTrack: Boolean = true
 ) {
-    val transition = rememberInfiniteTransition(label = "kosmosCircularLoader")
+    val rotation = if (isRunning) {
+        val transition = rememberInfiniteTransition(label = "kosmosCircularLoader")
 
-    val rotation by transition.animateFloat(
-        initialValue = 0f,
-        targetValue = 360f,
-        animationSpec = infiniteRepeatable(
-            animation = tween(
-                durationMillis = animationDurationMillis.coerceAtLeast(100),
-                easing = LinearEasing
+        val animatedRotation by transition.animateFloat(
+            initialValue = 0f,
+            targetValue = 360f,
+            animationSpec = infiniteRepeatable(
+                animation = tween(
+                    durationMillis = animationDurationMillis.coerceAtLeast(100),
+                    easing = LinearEasing
+                ),
+                repeatMode = RepeatMode.Restart
             ),
-            repeatMode = RepeatMode.Restart
-        ),
-        label = "rotation"
-    )
+            label = "rotation"
+        )
+        animatedRotation
+    } else {
+        0f
+    }
 
     Canvas(modifier = modifier) {
         val stroke = strokeWidth.coerceAtLeast(0.dp).toPx()
@@ -97,5 +109,25 @@ fun KosmosCircularProgressLoader(
                 cap = StrokeCap.Round
             )
         )
+    }
+}
+
+/** All styles and interaction examples together. Enable Interactive Preview to explore. */
+@Preview(name = "KosmosCircularProgressLoader gallery", group = "Kosmos components", widthDp = 400, heightDp = 1000, showBackground = true)
+@Composable
+private fun KosmosCircularProgressLoaderPreview() {
+    PreviewGallery("KosmosCircularProgressLoader") {
+        PreviewFrame("Tracked circular loader", "Interactive Preview shows rotation.", light = false) {
+            KosmosCircularProgressLoader()
+        }
+
+        PreviewFrame("Compact untracked arc", "Short arc, thin stroke, cyan accent.", light = false) {
+            KosmosCircularProgressLoader(modifier = Modifier.size(40.dp), color = Color(0xFF22D3EE), showTrack = false, strokeWidth = 2.dp, sweepAngle = 60f)
+        }
+
+        PreviewFrame("Bold long arc", "Large ring with a longer sweep and slower rotation.", light = false) {
+            KosmosCircularProgressLoader(modifier = Modifier.size(100.dp), strokeWidth = 8.dp, sweepAngle = 260f, animationDurationMillis = 2200)
+        }
+
     }
 }
