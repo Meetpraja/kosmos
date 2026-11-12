@@ -38,8 +38,8 @@ afterEvaluate {
             create<MavenPublication>("release") {
                 from(components["release"])
 
-                groupId = "com.github.username"
-                artifactId = "library_name"
+                groupId = "com.github.Meetpraja"
+                artifactId = "kosmos"
                 version = "1.0.0"
             }
         }
